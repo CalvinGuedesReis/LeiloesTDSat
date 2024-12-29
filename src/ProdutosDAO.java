@@ -29,14 +29,14 @@ public class ProdutosDAO {
           
           try {
               conn.getTransaction().begin();
-              conn.persist(f);
+              conn.persist(produto);
               conn.getTransaction().commit();
           }catch(Exception e){
               conn.getTransaction().rollback();
               throw e;
           }
           finally{
-              JPAUTIL.closeEtityManager();
+             conectaDAO();
           }
       }
         
