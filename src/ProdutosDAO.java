@@ -25,7 +25,20 @@ public class ProdutosDAO {
     public void cadastrarProduto (ProdutosDTO produto){
         
         
-        //conn = new conectaDAO().connectDB();
+        conn = new conectaDAO().connectDB();
+          
+          try {
+              conn.getTransaction().begin();
+              conn.persist(f);
+              conn.getTransaction().commit();
+          }catch(Exception e){
+              conn.getTransaction().rollback();
+              throw e;
+          }
+          finally{
+              JPAUTIL.closeEtityManager();
+          }
+      }
         
         
     }
