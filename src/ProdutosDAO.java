@@ -22,6 +22,13 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
+    public void venderProduuto (ProdutosDTO produto){
+    
+    ProdutosDTO produto = new ProdutosDTO();
+    
+    produto.setStatus(vendido);
+    }
+    
     public void cadastrarProduto (ProdutosDTO produto){
         
         
@@ -46,7 +53,7 @@ public class ProdutosDAO {
     public ArrayList<ProdutosDTO> listarProdutos(){
         
     conn = conectaDAO().connectDB(); //Abrir conexão
-  List produtos = null;
+    List produtos = null;
     try{
         //pesquisa, consulta JPQL
         String textoQuery = "select produto from produtoDTO produto"
