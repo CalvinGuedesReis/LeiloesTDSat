@@ -22,6 +22,34 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
+    public void venderProduuto (ProdutosDTO produto){
+    
+    String status = "Vendido";
+    produto.setStatus(status);
+    }
+    
+    public ArrayList<ProdutosDTO> listarProdutosVendidos (){
+        conn = conectaDAO().connectDB();
+        ArrayList<ProdutosDTO>listaVendidos = null;
+    try{
+        //pesquisa, consulta JPQL
+        String textoQuery = "select produto from produtoDTO produto"
+                + " WHERE (:descricaoProdutor is null OR d.descricao LIKE :descricaoFiltro)";
+        
+        Query consulta = conn.createQuery(textoQuery); //implementação da consulta
+        
+        consulta.setParameter("descricaoFiltro", filtroProdutor.isEmpty() ? null : "%" + filtroProdutor + "%");
+        
+        listagem = consulta.getResultList(); //executa, consulta e obtem lista
+        
+    }finally{
+             conectaDAO().connectDB(); //finalização
+             }   
+        
+     return listaVendidos;   
+    }
+    
+    
     public void cadastrarProduto (ProdutosDTO produto){
         
         
@@ -46,7 +74,7 @@ public class ProdutosDAO {
     public ArrayList<ProdutosDTO> listarProdutos(){
         
     conn = conectaDAO().connectDB(); //Abrir conexão
-  List produtos = null;
+    ArrayList<ProdutosDTO>listagem = null;
     try{
         //pesquisa, consulta JPQL
         String textoQuery = "select produto from produtoDTO produto"
